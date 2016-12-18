@@ -36,9 +36,29 @@ class Controller extends Package
         return t('Displays a debug bar in the browser with information from php.');
     }
 
-    public function on_start()
+    /**
+     * Install process of the package.
+     */
+    public function install()
+    {
+        if (!file_exists($this->getPackagePath() . '/vendor/autoload.php')) {
+            throw new Exception(t('Required libraries not found.'));
+        }
+        $this->registerAutoload();
+        $pkg = parent::install();
+    }
+
+    /**
+     * Register autoloader.
+     */
+    protected function registerAutoload()
     {
         require $this->getPackagePath() . '/vendor/autoload.php';
+    }
+
+    public function on_start()
+    {
+        $this->registerAutoload();
 
         $this->app->singleton('debugbar', 'Concrete5Debugbar\Debugbar');
         $this->app->bind('debugbar/renderer', function() {
