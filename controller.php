@@ -60,6 +60,10 @@ class Controller extends Package
     {
         $this->registerAutoload();
 
+        if (!isset($this->app)) {
+            $this->app = \Core::make('app');
+        }
+
         $this->app->singleton('debugbar', 'Concrete5Debugbar\Debugbar');
         $this->app->bind('debugbar/renderer', function () {
             $debugbar = $this->app->make('debugbar');
