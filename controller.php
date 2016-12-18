@@ -8,7 +8,7 @@ use Events;
 class Controller extends Package
 {
     protected $pkgHandle = 'debugbar';
-    protected $appVersionRequired = '8.0.0';
+    protected $appVersionRequired = '5.7.0.3';
     protected $pkgVersion = '0.1';
     protected $pkgAutoloaderRegistries = [
         'src/Concrete5Debugbar' => 'Concrete5Debugbar'
@@ -59,6 +59,10 @@ class Controller extends Package
     public function on_start()
     {
         $this->registerAutoload();
+
+        if (!isset($this->app)) {
+            $this->app = \Core::make('app');
+        }
 
         $this->app->singleton('debugbar', 'Concrete5Debugbar\Debugbar');
         $this->app->bind('debugbar/renderer', function() {
