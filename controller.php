@@ -5,6 +5,7 @@ use Concrete\Core\Package\Package;
 use Concrete\Core\View\View;
 use Concrete5Debugbar\Debugbar;
 use Database;
+use Events;
 
 class Controller extends Package
 {
@@ -39,13 +40,15 @@ class Controller extends Package
     {
         require $this->getPackagePath() . '/vendor/autoload.php';
 
-        $debugbar = new Debugbar();
-        $debugbarRenderer = $debugbar->getJavascriptRenderer(
-            $this->getRelativePath() . '/vendor/maximebf/debugbar/src/DebugBar/Resources'
-        );
+        Events::addListener('on_before_render', function ($event) {
+            $debugbar = new Debugbar();
+            $debugbarRenderer = $debugbar->getJavascriptRenderer(
+                $this->getRelativePath() . '/vendor/maximebf/debugbar/src/DebugBar/Resources'
+            );
 
-        $v = View::getInstance();
-        $v->addHeaderItem($debugbarRenderer->renderHead());
-        $v->addFooterItem($debugbarRenderer->render());
+            $v = $event->getArgument('view');
+            $v->addHeaderItem($debugbarRenderer->renderHead());
+            $v->addFooterItem($debugbarRenderer->render());
+        });
     }
 }
