@@ -6,7 +6,7 @@ A package to integrate [PHP Debug Bar](http://phpdebugbar.com/) with concrete5 C
 
 ### Messages
 
-You can add messages to this tab using compatible usage with [PSR-3 logger](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md)).
+You can add messages to this tab using compatible usage with [PSR-3 logger](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md).
 
 ```php
 \Core::make('debugbar/messages')->info('hello world');
