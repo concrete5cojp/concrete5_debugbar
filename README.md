@@ -2,6 +2,8 @@
 
 A package to integrate [PHP Debug Bar](http://phpdebugbar.com/) with concrete5 CMS.
 
+![Database Tab](https://raw.githubusercontent.com/hissy/concrete5-debugbar/master/screenshots/database.png)
+
 ## Usage
 
 ### Messages
