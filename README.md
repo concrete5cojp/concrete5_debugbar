@@ -2,6 +2,17 @@
 
 A package to integrate [PHP Debug Bar](http://phpdebugbar.com/) with concrete5 CMS.
 
+## Installation
+
+```bash
+$ cd ./packages
+$ git clone git@github.com:hissy/concrete5-debugbar.git debugbar
+$ cd debugbar
+$ composer install
+$ cd ../../
+$ ./concrete/bin/concrete5 c5:package-install debugbar
+```
+
 ## Tabs
 
 ### Messages
