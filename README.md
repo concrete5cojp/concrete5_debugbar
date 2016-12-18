@@ -13,6 +13,8 @@ Provides a way to log messages (compatible with [PSR-3 logger](https://github.co
 \Core::make('debugbar/messages')->info($object);
 ```
 
+![Messages Tab](https://raw.githubusercontent.com/hissy/concrete5-debugbar/master/screenshots/messages.png)
+
 ### TimeData
 
 Provides a way to log total execution time as well as taking "measures" (ie. measure the execution time of a particular operation).
@@ -22,3 +24,5 @@ Provides a way to log total execution time as well as taking "measures" (ie. mea
 sleep(2);
 \Core::make('debugbar/time')->stopMeasure('longop');
 ```
+
+![Timeline Tab](https://raw.githubusercontent.com/hissy/concrete5-debugbar/master/screenshots/time.png)
