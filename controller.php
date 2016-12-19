@@ -41,7 +41,7 @@ class Controller extends Package
      */
     public function install()
     {
-        if (!file_exists($this->getPackagePath() . '/vendor/autoload.php')) {
+        if (!file_exists($this->getPackagePath().'/vendor/autoload.php')) {
             throw new Exception(t('Required libraries not found.'));
         }
         $this->registerAutoload();
@@ -53,29 +53,25 @@ class Controller extends Package
      */
     protected function registerAutoload()
     {
-        require $this->getPackagePath() . '/vendor/autoload.php';
+        require $this->getPackagePath().'/vendor/autoload.php';
     }
 
     public function on_start()
     {
         $this->registerAutoload();
 
-        if (!isset($this->app)) {
-            $this->app = \Core::make('app');
-        }
-
         $this->app->singleton('debugbar', 'Concrete5Debugbar\Debugbar');
-        $this->app->bind('debugbar/renderer', function() {
+        $this->app->bind('debugbar/renderer', function () {
             $debugbar = $this->app->make('debugbar');
             return $debugbar->getJavascriptRenderer(
-                $this->getRelativePath() . '/vendor/maximebf/debugbar/src/DebugBar/Resources'
+                $this->getRelativePath().'/vendor/maximebf/debugbar/src/DebugBar/Resources'
             );
         });
-        $this->app->bind('debugbar/messages', function() {
+        $this->app->bind('debugbar/messages', function () {
             $debugbar = $this->app->make('debugbar');
             return $debugbar['messages'];
         });
-        $this->app->bind('debugbar/time', function() {
+        $this->app->bind('debugbar/time', function () {
             $debugbar = $this->app->make('debugbar');
             return $debugbar['time'];
         });

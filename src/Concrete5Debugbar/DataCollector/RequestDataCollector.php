@@ -15,7 +15,7 @@ class RequestDataCollector extends DataCollector implements Renderable
         /** @var Request $request */
         $request = \Core::make('Concrete\Core\Http\Request');
 
-        $data = array();
+        $data = [];
         $data['path'] = $this->getDataFormatter()->formatVar($request->getPath());
         $data['query'] = $this->getDataFormatter()->formatVar($request->query);
         $data['cookies'] = $this->getDataFormatter()->formatVar($request->cookies);
@@ -40,14 +40,14 @@ class RequestDataCollector extends DataCollector implements Renderable
      */
     function getWidgets()
     {
-        return array(
-            "request" => array(
+        return [
+            "request" => [
                 "icon" => "tags",
                 "widget" => "PhpDebugBar.Widgets.VariableListWidget",
                 "map" => "concrete5request",
                 "default" => "{}"
-            )
-        );
+            ]
+        ];
     }
 
 }
