@@ -2,6 +2,7 @@
 namespace Concrete5Debugbar;
 
 use Concrete5Debugbar\DataCollector\RequestDataCollector;
+use Concrete5Debugbar\DataCollector\SessionDataCollector;
 use DebugBar\Bridge\DoctrineCollector;
 use DebugBar\DataCollector\MemoryCollector;
 use DebugBar\DataCollector\MessagesCollector;
@@ -21,6 +22,7 @@ class Debugbar extends \DebugBar\DebugBar
         $this->addCollector(new TimeDataCollector());
         $this->addCollector(new MemoryCollector());
         $this->addCollector(new RequestDataCollector());
+        $this->addCollector(new SessionDataCollector());
         $doctrineDebugStack = new DebugStack();
         \Core::make('Concrete\Core\Database\DatabaseManager')->getConfiguration()->setSQLLogger($doctrineDebugStack);
         $this->addCollector(new DoctrineCollector($doctrineDebugStack));
