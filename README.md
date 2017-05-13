@@ -49,3 +49,9 @@ You can check how concrete5 retreive request data in this tab.
 You can check all sql queries on current request in this tab.
 
 ![Database Tab](https://raw.githubusercontent.com/hissy/concrete5-debugbar/master/screenshots/database.png)
+
+### Logs
+
+You can check application logs (same as dashboard/reports/logs but you can quick access!).
+
+![Logs Tab](https://raw.githubusercontent.com/hissy/concrete5-debugbar/master/screenshots/logs.png)
