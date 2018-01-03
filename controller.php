@@ -7,9 +7,9 @@ use Events;
 
 class Controller extends Package
 {
-    protected $pkgHandle = 'debugbar';
-    protected $appVersionRequired = '5.7.0.3';
-    protected $pkgVersion = '0.1';
+    protected $pkgHandle = 'concrete5_debugbar';
+    protected $appVersionRequired = '8.3.0';
+    protected $pkgVersion = '0.2-dev';
     protected $pkgAutoloaderRegistries = [
         'src/Concrete5Debugbar' => 'Concrete5Debugbar'
     ];
