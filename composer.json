@@ -1,5 +1,5 @@
 {
-    "name": "concrete5cojp/concrete5-debugbar",
+    "name": "concrete5cojp/concrete5_debugbar",
     "description": "A package to integrate PHP Debug Bar with concrete5 CMS.",
     "type": "concrete5-package",
     "license": "MIT",
