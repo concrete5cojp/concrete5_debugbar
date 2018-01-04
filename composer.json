@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "src\\Concrete5Debugbar\\": "src/Concrete5Debugbar/"
+            "Concrete5Debugbar\\": "src/Concrete5Debugbar/"
         }
     }
 }

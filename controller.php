@@ -1,7 +1,8 @@
 <?php
-namespace Concrete\Package\Debugbar;
+namespace Concrete\Package\Concrete5Debugbar;
 
 use Concrete\Core\Package\Package;
+use Concrete5Debugbar\Debugbar;
 use Database;
 use Events;
 
@@ -10,9 +11,6 @@ class Controller extends Package
     protected $pkgHandle = 'concrete5_debugbar';
     protected $appVersionRequired = '8.3.0';
     protected $pkgVersion = '0.2-dev';
-    protected $pkgAutoloaderRegistries = [
-        'src/Concrete5Debugbar' => 'Concrete5Debugbar'
-    ];
 
     const PLACEHOLDER_TEXT = '<!-- debugbar:placeholder -->';
 
@@ -41,10 +39,12 @@ class Controller extends Package
      */
     public function install()
     {
-        if (!file_exists($this->getPackagePath().'/vendor/autoload.php')) {
+        $this->registerAutoload();
+
+        if (!class_exists('DebugBar\DebugBar')) {
             throw new Exception(t('Required libraries not found.'));
         }
-        $this->registerAutoload();
+
         $pkg = parent::install();
     }
 
@@ -53,42 +53,47 @@ class Controller extends Package
      */
     protected function registerAutoload()
     {
-        require $this->getPackagePath().'/vendor/autoload.php';
+        if (class_exists('Concrete5Debugbar\Debugbar')) {
+            $this->pkgAutoloaderRegistries = [
+                'src/Concrete5Debugbar' => 'Concrete5Debugbar'
+            ];
+        }
+
+        if (file_exists($this->getPackagePath().'/vendor/autoload.php')) {
+            require $this->getPackagePath().'/vendor/autoload.php';
+        }
     }
 
     public function on_start()
     {
         $this->registerAutoload();
 
-        if (!isset($this->app)) {
-            $this->app = \Core::make('app');
-        }
+        $app = $this->getApplication();
 
-        $this->app->singleton('debugbar', 'Concrete5Debugbar\Debugbar');
-        $this->app->bind('debugbar/renderer', function () {
-            $debugbar = $this->app->make('debugbar');
-            return $debugbar->getJavascriptRenderer(
-                $this->getRelativePath().'/vendor/maximebf/debugbar/src/DebugBar/Resources'
-            );
+        $app->singleton('debugbar', Debugbar::class);
+        $app->bind('debugbar/renderer', function () use ($app) {
+            /** @var Debugbar $debugbar */
+            $debugbar = $app->make('debugbar');
+            return $debugbar->getJavascriptRenderer();
         });
-        $this->app->bind('debugbar/messages', function () {
-            $debugbar = $this->app->make('debugbar');
+        $app->bind('debugbar/messages', function () use ($app) {
+            $debugbar = $app->make('debugbar');
             return $debugbar['messages'];
         });
-        $this->app->bind('debugbar/time', function () {
-            $debugbar = $this->app->make('debugbar');
+        $app->bind('debugbar/time', function () use ($app) {
+            $debugbar = $app->make('debugbar');
             return $debugbar['time'];
         });
 
-        Events::addListener('on_before_render', function ($event) {
-            $debugbarRenderer = $this->app->make('debugbar/renderer');
+        $app->make('director')->addListener('on_before_render', function ($event) use ($app) {
+            $debugbarRenderer = $app->make('debugbar/renderer');
             $v = $event->getArgument('view');
             $v->addHeaderItem($debugbarRenderer->renderHead());
             $v->addFooterItem(self::PLACEHOLDER_TEXT);
         });
 
-        Events::addListener('on_page_output', function ($event) {
-            $debugbarRenderer = $this->app->make('debugbar/renderer');
+        $app->make('director')->addListener('on_page_output', function ($event) use ($app) {
+            $debugbarRenderer = $app->make('debugbar/renderer');
             $contents = $event->getArgument('contents');
             $contents = str_replace(self::PLACEHOLDER_TEXT, $debugbarRenderer->render(), $contents);
             $event->setArgument('contents', $contents);
