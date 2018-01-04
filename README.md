@@ -4,11 +4,11 @@ A package to integrate [PHP Debug Bar](http://phpdebugbar.com/) with concrete5 C
 
 ## Installation
 
-### Install the debug bar using composer
+### Install the debug bar to the site that managed using composer
 
 If you are managing your concrete5 site using [concrete5/composer](https://github.com/concrete5/composer), you can manage this package with composer too.
 
-#### 1. Modify composer.json file
+#### 1. Modify your composer.json file
 
 Add these packages to `"require"` section:
 
@@ -25,7 +25,7 @@ Add these lines to `"extra"` section:
 }
 ```
 
-Add `"script"` section:
+Add `"scripts"` section:
 
 ```
 "scripts": {
@@ -102,6 +102,17 @@ $ composer update
 
 ```bash
 $ ./public/concrete/bin/concrete5 c5:package-install concrete5_debugbar
+```
+
+### Install the debug bar to the site that managed *without* using composer
+
+```bash
+$ cd ./packages
+$ git clone git@github.com:concrete5cojp/concrete5_debugbar.git
+$ cd concrete5_debugbar
+$ composer install
+$ cd ../../
+$ ./concrete/bin/concrete5 c5:package-install concrete5_debugbar
 ```
 
 ## Usage
