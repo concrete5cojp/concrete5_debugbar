@@ -10,7 +10,7 @@ class Controller extends Package
 {
     protected $pkgHandle = 'concrete5_debugbar';
     protected $appVersionRequired = '8.3.0';
-    protected $pkgVersion = '0.2-dev';
+    protected $pkgVersion = '0.2';
 
     const PLACEHOLDER_TEXT = '<!-- debugbar:placeholder -->';
 
@@ -74,7 +74,7 @@ class Controller extends Package
         $app->bind('debugbar/renderer', function () use ($app) {
             /** @var Debugbar $debugbar */
             $debugbar = $app->make('debugbar');
-            return $debugbar->getJavascriptRenderer();
+            return $debugbar->getJavascriptRenderer($this->getRelativePath().'/vendor/maximebf/debugbar/src/DebugBar/Resources');
         });
         $app->bind('debugbar/messages', function () use ($app) {
             $debugbar = $app->make('debugbar');

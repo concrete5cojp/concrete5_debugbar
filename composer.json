@@ -6,25 +6,11 @@
     "minimum-stability": "stable",
     "require": {
         "concrete5/core": "^8.3",
-        "maximebf/debugbar": ">=1.0.0",
-        "slowprog/composer-copy-file": "~0.2"
+        "maximebf/debugbar": ">=1.0.0"
     },
     "autoload": {
         "psr-4": {
             "Concrete5Debugbar\\": "src/Concrete5Debugbar/"
-        }
-    },
-    "scripts": {
-        "post-package-install": [
-            "SlowProg\\CopyFile\\ScriptHandler::copy"
-        ],
-        "post-package-update": [
-            "SlowProg\\CopyFile\\ScriptHandler::copy"
-        ]
-    },
-    "extra": {
-        "copy-file": {
-            "vendor/maximebf/debugbar/src/DebugBar/Resources/": "public/packages/concrete5_debugbar/vendor/maximebf/debugbar/src/DebugBar/Resources/"
         }
     }
 }

@@ -4,16 +4,107 @@ A package to integrate [PHP Debug Bar](http://phpdebugbar.com/) with concrete5 C
 
 ## Installation
 
-```bash
-$ cd ./packages
-$ git clone git@github.com:hissy/concrete5-debugbar.git debugbar
-$ cd debugbar
-$ composer install
-$ cd ../../
-$ ./concrete/bin/concrete5 c5:package-install debugbar
+### Install the debug bar using composer
+
+If you are managing your concrete5 site using [concrete5/composer](https://github.com/concrete5/composer), you can manage this package with composer too.
+
+#### 1. Modify composer.json file
+
+Add these packages to `"require"` section:
+
+```
+"concrete5cojp/concrete5_debugbar": "~0.2",
+"slowprog/composer-copy-file": "~0.2"
 ```
 
-## Tabs
+Add these lines to `"extra"` section:
+
+```
+"copy-file": {
+  "vendor/maximebf/debugbar/src/DebugBar/Resources/": "public/packages/concrete5_debugbar/vendor/maximebf/debugbar/src/DebugBar/Resources/"
+}
+```
+
+Add `"script"` section:
+
+```
+"scripts": {
+  "post-install-cmd": [
+    "SlowProg\\CopyFile\\ScriptHandler::copy"
+  ],
+  "post-update-cmd": [
+    "SlowProg\\CopyFile\\ScriptHandler::copy"
+  ]
+}
+```
+
+When you are managing your concrete5 site using composer, the `vendor` directory is outside from the document root.
+However, the `debugbar` package has some css/js/images in the `vendor` directory, so you have to move these static files.
+That's why we need to add the `composer-copy-file` package and the scripts section.
+You are also able to move `Resources` directory manually.
+
+Entire composer.json example:
+
+```json
+{
+  "name": "concrete5/composer",
+  "description": "A fully featured skeleton for a composer managed concrete5 site",
+  "type": "project",
+  "license": "MIT",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "ConcreteComposer\\" : "./src"
+    }
+  },
+  "require": {
+    "composer/installers": "^1.3",
+    "concrete5/core": "^8.3",
+    "vlucas/phpdotenv": "^2.4",
+    "concrete5cojp/concrete5_debugbar": "dev-master",
+    "slowprog/composer-copy-file": "~0.2"
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-8.x": "8.x-dev"
+    },
+    "installer-paths": {
+      "public/concrete": ["type:concrete5-core"],
+      "public/application/themes/{$name}": ["type:concrete5-theme"],
+      "public/packages/{$name}": ["type:concrete5-package"],
+      "public/application/blocks/{$name}": ["type:concrete5-block"]
+    },
+    "copy-file": {
+      "vendor/maximebf/debugbar/src/DebugBar/Resources/": "public/packages/concrete5_debugbar/vendor/maximebf/debugbar/src/DebugBar/Resources/"
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "SlowProg\\CopyFile\\ScriptHandler::copy"
+    ],
+    "post-update-cmd": [
+      "SlowProg\\CopyFile\\ScriptHandler::copy"
+    ]
+  }
+}
+```
+
+#### 2. Download the package
+
+```bash
+$ composer update
+```
+
+#### 3. Install the package
+
+```bash
+$ ./public/concrete/bin/concrete5 c5:package-install concrete5_debugbar
+```
+
+## Usage
 
 ### Messages
 
