@@ -53,12 +53,6 @@ class Controller extends Package
      */
     protected function registerAutoload()
     {
-        if (class_exists('Concrete5Debugbar\Debugbar')) {
-            $this->pkgAutoloaderRegistries = [
-                'src/Concrete5Debugbar' => 'Concrete5Debugbar'
-            ];
-        }
-
         if (file_exists($this->getPackagePath().'/vendor/autoload.php')) {
             require $this->getPackagePath().'/vendor/autoload.php';
         }
