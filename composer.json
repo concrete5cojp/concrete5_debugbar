@@ -15,10 +15,10 @@
         }
     },
     "scripts": {
-        "post-install-cmd": [
+        "post-package-install": [
             "SlowProg\\CopyFile\\ScriptHandler::copy"
         ],
-        "post-update-cmd": [
+        "post-package-update": [
             "SlowProg\\CopyFile\\ScriptHandler::copy"
         ]
     },
