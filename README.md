@@ -157,3 +157,10 @@ You can check all sql queries on current request in this tab.
 You can check application logs (same as dashboard/reports/logs but you can quick access!).
 
 ![Logs Tab](https://raw.githubusercontent.com/hissy/concrete5-debugbar/master/screenshots/logs.png)
+
+
+### Environment
+
+Get some information about the server environment.
+
+![Environment Tab](screenshots/environment.png)
