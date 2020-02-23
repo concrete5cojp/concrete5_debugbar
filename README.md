@@ -106,10 +106,41 @@ $ ./public/concrete/bin/concrete5 c5:package-install concrete5_debugbar
 
 ### Install the debug bar to the site that managed *without* using composer
 
+First, download package files
+
 ```bash
 $ cd ./packages
 $ git clone git@github.com:concrete5cojp/concrete5_debugbar.git
 $ cd concrete5_debugbar
+```
+
+Then update composer.json as
+
+```json
+{
+    "name": "concrete5cojp/concrete5_debugbar",
+    "description": "A package to integrate PHP Debug Bar with concrete5 CMS.",
+    "type": "concrete5-package",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {
+        "maximebf/debugbar": ">=1.0.0"
+    },
+    "replace": {
+        "psr/log": "*",
+        "symfony/polyfill-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Concrete5Debugbar\\": "src/Concrete5Debugbar/"
+        }
+    }
+}
+```
+
+Finally you can install the package
+
+```bash
 $ composer install
 $ cd ../../
 $ ./concrete/bin/concrete5 c5:package-install concrete5_debugbar
