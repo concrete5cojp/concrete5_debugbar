@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<concrete5-cif version="1.0">
+    <permissionkeys>
+        <permissionkey handle="show_debug_bar" name="Show Debug Bar" description="" package="concrete5_debugbar"
+                       category="admin">
+        </permissionkey>
+    </permissionkeys>
+</concrete5-cif>

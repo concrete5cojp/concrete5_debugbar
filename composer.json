@@ -5,8 +5,11 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "concrete5/core": "^8.3",
         "maximebf/debugbar": ">=1.0.0"
+    },
+    "replace": {
+        "psr/log": "~1.0",
+        "symfony/polyfill-mbstring": "~1.0"
     },
     "autoload": {
         "psr-4": {
